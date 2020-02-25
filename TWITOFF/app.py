@@ -11,8 +11,12 @@ def create_app():
     """Create App using function."""
     app = Flask(__name__)
 
+    # stop tracking modifications on SQLAlchemy config
+
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
     # add config for database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+    app.config['SQLALCHEMY_DATABASE_URI'] = config('DATABASE_URL')
     # have the database know about the app
     DB.init_app(app)
 
