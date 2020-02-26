@@ -22,8 +22,8 @@ def predict_user(user1_name, user2_name, tweet_text, cache=None):
         user2_embeddings = np.array([tweet.embedding for tweet in user1.tweets])
         # split into array
         embeddings = np.vstack([user1_embeddings, user2_embeddings])
-        labels = np.concactenate([np.ones(len(user1.tweets)),
-                                  np.zeroes(len(user2.tweets))])
+        labels = np.concatenate([np.ones(len(user1.tweets)),
+                                 np.zeros(len(user2.tweets))])
         # fit the logistic regression model
         log_reg = LogisticRegression().fit(embeddings, labels)
         cache and cache.set(user_set, pickle.dumps(log_reg))

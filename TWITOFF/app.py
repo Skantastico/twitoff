@@ -5,6 +5,11 @@ from flask import Flask, render_template, request
 from .models import DB, User
 
 from .twitter import add_or_update_user
+from .predict import predict_user
+
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # make our app factory
 
@@ -59,10 +64,10 @@ def create_app():
             prediction = predict_user(user1,
                                       user2,
                                       request.values['tweet_text'])
-            message = '"{}" is more likely to be said by {} than {}"'.format()
+            message = '"{}" is more likely to be said by {} than {}"'.format(
             request.values['tweet_text'], user1 if prediction else user2,
             user2 if prediction else user1
             )
-        return render_template('prediction.html', title = 'Prediction',
-                                message=message)
+        return render_template('prediction.html', title='Prediction',
+                               message=message)
     return app
